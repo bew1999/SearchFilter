@@ -1,0 +1,109 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SearchFilter {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		List<String> list = new ArrayList<>();
+		list.add("Dog");
+		list.add("Cat");
+		list.add("Horse");
+		list.add("Bird");
+		list.add("Fish");
+
+		System.out.println("Which pet do you want? Type response (Dog, Cat, Horse, Bird, or Fish).");
+		String pet = input.nextLine();
+		input.close();
+		
+		List<String> filters = new ArrayList<>();
+
+		if (pet.contentEquals("Dog")) {
+			filters.add("Cat");
+			filters.add("Horse");
+			filters.add("Bird");
+			filters.add("Fish");
+
+		}
+		if (pet.contentEquals("Cat")) {
+			filters.add("Dog");
+			filters.add("Horse");
+			filters.add("Bird");
+			filters.add("Fish");
+
+		}
+		if (pet.contentEquals("Horse")) {
+			filters.add("Cat");
+			filters.add("Dog");
+			filters.add("Bird");
+			filters.add("Fish");
+
+		}
+		if (pet.contentEquals("Bird")) {
+			filters.add("Cat");
+			filters.add("Horse");
+			filters.add("Dog");
+			filters.add("Fish");
+
+		}
+		if (pet.contentEquals("Fish")) {
+			filters.add("Cat");
+			filters.add("Horse");
+			filters.add("Bird");
+			filters.add("Dog");
+
+		}
+
+		list.removeAll(filters);
+
+		URL url;
+
+		try {
+			// get URL content
+			String a = "";
+			if (list.get(0).equals("Dog")) {
+				a = "http://bit.ly/2LaHbLp";
+			}
+			if (list.get(0).equals("Cat")) {
+				a = "http://bit.ly/2Ld5k49";
+			}
+			if (list.get(0).equals("Horse")) {
+				a = "http://bit.ly/2vyzzHV";
+			}
+			if (list.get(0).equals("Bird")) {
+				a = "http://bit.ly/2PDoePU";
+			}
+			if (list.get(0).equals("Fish")) {
+				a = "http://bit.ly/2J56I6a";
+			}
+
+			url = new URL(a);
+			URLConnection conn = url.openConnection();
+
+			// open the stream and put it into BufferedReader
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				System.out.println(inputLine);
+			}
+			br.close();
+
+			System.out.println("Done");
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
